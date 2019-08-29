@@ -38,7 +38,7 @@ void UPuzzlePlatformsGameInstance::Init() {
 
 }
 
-void UPuzzlePlatformsGameInstance::LoadMenu() {
+void UPuzzlePlatformsGameInstance::LoadMenuWidget() {
 	if (!ensure(MenuClass != nullptr)) { return; }
 
 	Menu = CreateWidget<UMainMenu>(this, MenuClass);
