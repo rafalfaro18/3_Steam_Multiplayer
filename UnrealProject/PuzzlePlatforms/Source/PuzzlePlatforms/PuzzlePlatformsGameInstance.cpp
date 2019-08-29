@@ -33,9 +33,15 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitiali
 
 void UPuzzlePlatformsGameInstance::Init() {
 	Super::Init();
-	UE_LOG(LogTemp, Warning, TEXT("Found class %s"), *MenuClass->GetName());
 
-
+	IOnlineSubsystem* Subsytem = IOnlineSubsystem::Get();
+	if (Subsytem != nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Found subsystem %s"), *Subsytem->GetSubsystemName().ToString());
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("Found no subsystem"));
+	}
+	
 }
 
 void UPuzzlePlatformsGameInstance::LoadMenuWidget() {
