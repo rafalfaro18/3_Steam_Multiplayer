@@ -2,11 +2,14 @@
 
 
 #include "PuzzlePlatformsGameInstance.h"
+
 #include "Engine/Engine.h"
 #include "GameFramework/PlayerController.h"
 #include "UObject/ConstructorHelpers.h"
-#include "PlatformTrigger.h"
 #include "Blueprint/UserWidget.h"
+#include "OnlineSubsystem.h"
+
+#include "PlatformTrigger.h"
 #include "MenuSystem/MainMenu.h"
 #include "MenuSystem/MenuWidget.h"
 
@@ -31,6 +34,8 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitiali
 void UPuzzlePlatformsGameInstance::Init() {
 	Super::Init();
 	UE_LOG(LogTemp, Warning, TEXT("Found class %s"), *MenuClass->GetName());
+
+
 }
 
 void UPuzzlePlatformsGameInstance::LoadMenu() {
