@@ -138,7 +138,12 @@ void UPuzzlePlatformsGameInstance::OnFindSessionsComplete(bool Success) {
 }
 
 void UPuzzlePlatformsGameInstance::Join(const FString & Address) {
-	UEngine* Engine = GetEngine();
+
+	if (Menu != nullptr) {
+		Menu->SetServerList({"Test1","Test2"});
+	}
+
+	/*UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) { return; }
 
 	Engine->AddOnScreenDebugMessage(0, 5.f, FColor::Green, FString::Printf(TEXT("Joining %s"), *Address));
@@ -146,7 +151,7 @@ void UPuzzlePlatformsGameInstance::Join(const FString & Address) {
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
 	if (!ensure(PlayerController != nullptr)) { return; }
 
-	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);*/
 }
 
 void UPuzzlePlatformsGameInstance::LoadMainMenu() {

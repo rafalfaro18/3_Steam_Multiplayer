@@ -42,8 +42,6 @@ bool UMainMenu::Initialize() {
 	return true;
 }
 
-
-
 void UMainMenu::HostServer() {
 	
 	if (MenuInterface != nullptr) {
@@ -51,24 +49,29 @@ void UMainMenu::HostServer() {
 	}
 }
 
+void UMainMenu::SetServerList(TArray<FString> ServerNames) {
+
+	UWorld* World = this->GetWorld();
+	if (!ensure(World != nullptr)) { return; }
+
+	for (const FString& ServerName : ServerNames) {
+		UServerRow* Row = CreateWidget<UServerRow>(World, ServerRowClass);
+		if (!ensure(Row != nullptr)) { return; }
+
+		Row->ServerName->SetText(FText::FromString(ServerName));
+
+		ServerList->AddChild(Row);
+	}
+
+}
+
 void UMainMenu::JoinServer() {
 	if (MenuInterface != nullptr) {
 
 		/*if (!ensure(IPAddressField != nullptr)) { return; }
 		
-		const FString& Address = IPAddressField->GetText().ToString();
-		MenuInterface->Join(Address);*/
-
-		//if (!ensure(ServerRowClass != nullptr)) { return; }
-		UWorld* World = this->GetWorld();
-		if (!ensure(World != nullptr)) { return; }
-
-		UServerRow* Row = CreateWidget<UServerRow>(World, ServerRowClass);
-		if (!ensure(Row != nullptr)) { return; }
-
-		Row->ServerName->SetText(FText::FromString(TEXT("Test text")));
-
-		ServerList->AddChild(Row);
+		const FString& Address = IPAddressField->GetText().ToString();*/
+		MenuInterface->Join("");
 
 	}
 }
