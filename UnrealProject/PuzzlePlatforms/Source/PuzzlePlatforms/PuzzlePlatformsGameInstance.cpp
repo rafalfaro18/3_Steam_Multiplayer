@@ -45,14 +45,6 @@ void UPuzzlePlatformsGameInstance::Init() {
 			SessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnCreateSessionComplete);
 			SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnDestroySessionComplete);
 			SessionInterface->OnFindSessionsCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnFindSessionsComplete);
-
-			SessionSearch = MakeShareable(new FOnlineSessionSearch());
-			if (SessionSearch.IsValid()) {
-				//SessionSearch->bIsLanQuery = true; // If false searches online and lan.
-
-				UE_LOG(LogTemp, Warning, TEXT("Starting Find Session"));
-				SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
-			}
 		}
 	}
 	else {
@@ -127,13 +119,28 @@ void UPuzzlePlatformsGameInstance::CreateSession() {
 	}
 }
 
+void UPuzzlePlatformsGameInstance::RefreshServerList() {
+	SessionSearch = MakeShareable(new FOnlineSessionSearch());
+	if (SessionSearch.IsValid()) {
+		//SessionSearch->bIsLanQuery = true; // If false searches online and lan.
+
+		UE_LOG(LogTemp, Warning, TEXT("Starting Find Session"));
+		SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
+	}
+}
+
 void UPuzzlePlatformsGameInstance::OnFindSessionsComplete(bool Success) {
 	
-	if (Success && SessionSearch.IsValid()) {
+	if (Success && SessionSearch.IsValid() && Menu != nullptr) {
 		UE_LOG(LogTemp, Warning, TEXT("Finished Find Session"));
+
+		TArray<FString> ServerNames;
 		for (const FOnlineSessionSearchResult& SearchResult : SessionSearch->SearchResults) {
 			UE_LOG(LogTemp, Warning, TEXT("Found Session name: %s"), *SearchResult.GetSessionIdStr());
+			ServerNames.Add(SearchResult.GetSessionIdStr());
 		}
+
+		Menu->SetServerList(ServerNames);
 	}
 }
 
@@ -160,3 +167,4 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu() {
 
 	PlayerController->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
 }
+

@@ -88,6 +88,10 @@ void UMainMenu::OpenMainMenu() {
 	if (!ensure(MenuSwitcher != nullptr)) { return; }
 	if (!ensure(MainMenu != nullptr)) { return; }
 	MenuSwitcher->SetActiveWidget(MainMenu);
+
+	if (MenuInterface != nullptr) {
+		MenuInterface->RefreshServerList();
+	}
 }
 
 void UMainMenu::QuitPressed() {
