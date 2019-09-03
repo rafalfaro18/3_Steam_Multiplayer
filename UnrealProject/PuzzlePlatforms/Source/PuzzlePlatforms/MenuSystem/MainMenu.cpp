@@ -7,6 +7,7 @@
 #include "Components/EditableTextBox.h"
 #include "UObject/ConstructorHelpers.h"
 #include "MenuSystem/ServerRow.h"
+#include "Components/TextBlock.h"
 
 UMainMenu::UMainMenu(const FObjectInitializer & ObjectInitializer) {
 	static ConstructorHelpers::FClassFinder<UUserWidget> ServerRowBPClass(TEXT("/Game/MenuSystem/WBP_ServerRow"));
@@ -64,6 +65,8 @@ void UMainMenu::JoinServer() {
 
 		UServerRow* Row = CreateWidget<UServerRow>(World, ServerRowClass);
 		if (!ensure(Row != nullptr)) { return; }
+
+		Row->ServerName->SetText(FText::FromString(TEXT("Test text")));
 
 		ServerList->AddChild(Row);
 
