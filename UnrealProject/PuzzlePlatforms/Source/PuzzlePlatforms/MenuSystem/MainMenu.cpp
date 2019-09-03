@@ -89,16 +89,16 @@ void UMainMenu::OpenJoinMenu() {
 	if (!ensure(MenuSwitcher != nullptr)) { return; }
 	if (!ensure(JoinMenu != nullptr)) { return; }
 	MenuSwitcher->SetActiveWidget(JoinMenu);
+
+	if (MenuInterface != nullptr) {
+		MenuInterface->RefreshServerList();
+	}
 }
 
 void UMainMenu::OpenMainMenu() {
 	if (!ensure(MenuSwitcher != nullptr)) { return; }
 	if (!ensure(MainMenu != nullptr)) { return; }
 	MenuSwitcher->SetActiveWidget(MainMenu);
-
-	if (MenuInterface != nullptr) {
-		MenuInterface->RefreshServerList();
-	}
 }
 
 void UMainMenu::QuitPressed() {
