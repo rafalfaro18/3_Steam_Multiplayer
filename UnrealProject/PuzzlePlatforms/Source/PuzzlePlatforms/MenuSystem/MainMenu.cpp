@@ -54,6 +54,8 @@ void UMainMenu::SetServerList(TArray<FString> ServerNames) {
 	UWorld* World = this->GetWorld();
 	if (!ensure(World != nullptr)) { return; }
 
+	ServerList->ClearChildren();
+
 	for (const FString& ServerName : ServerNames) {
 		UServerRow* Row = CreateWidget<UServerRow>(World, ServerRowClass);
 		if (!ensure(Row != nullptr)) { return; }
