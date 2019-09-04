@@ -125,6 +125,7 @@ void UPuzzlePlatformsGameInstance::RefreshServerList() {
 	SessionSearch = MakeShareable(new FOnlineSessionSearch());
 	if (SessionSearch.IsValid()) {
 		//SessionSearch->bIsLanQuery = true; // If false searches online and lan.
+		SessionSearch->MaxSearchResults = 100; // Enough to filter other games' lobbies and leave only ours.
 		SessionSearch->QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
 		UE_LOG(LogTemp, Warning, TEXT("Starting Find Session"));
 		SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
