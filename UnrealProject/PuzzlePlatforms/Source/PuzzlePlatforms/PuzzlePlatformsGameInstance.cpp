@@ -112,7 +112,14 @@ void UPuzzlePlatformsGameInstance::OnDestroySessionComplete(FName SessionName, b
 void UPuzzlePlatformsGameInstance::CreateSession() {
 	if (SessionInterface.IsValid()) {
 		FOnlineSessionSettings SessionSettings;
-		SessionSettings.bIsLANMatch = false;
+
+		if (IOnlineSubsystem::Get()->GetSubsystemName() == "NULL") {
+			SessionSettings.bIsLANMatch = true;
+		}
+		else {
+			SessionSettings.bIsLANMatch = false;
+		}
+
 		SessionSettings.NumPublicConnections = 2;
 		SessionSettings.bShouldAdvertise = true;
 		SessionSettings.bUsesPresence = true;
