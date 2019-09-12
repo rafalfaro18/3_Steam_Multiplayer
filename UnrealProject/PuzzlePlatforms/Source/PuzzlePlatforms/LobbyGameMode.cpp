@@ -2,6 +2,7 @@
 
 
 #include "LobbyGameMode.h"
+#include "Engine/World.h"
 
 void ALobbyGameMode::PostLogin(APlayerController * NewPlayer) {
 	Super::PostLogin(NewPlayer);
