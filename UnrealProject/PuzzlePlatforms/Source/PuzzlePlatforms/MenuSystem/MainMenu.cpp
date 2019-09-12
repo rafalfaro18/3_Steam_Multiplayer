@@ -25,7 +25,7 @@ bool UMainMenu::Initialize() {
 	if (!Success) { return false; }
 
 	if (!ensure(HostButton != nullptr)) { return false; }
-	HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+	HostButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
 
 	if (!ensure(JoinButton != nullptr)) { return false; }
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
@@ -40,6 +40,10 @@ bool UMainMenu::Initialize() {
 	ConfirmJoinMenuButton->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
 
 	return true;
+}
+
+void UMainMenu::OpenHostMenu() {
+	MenuSwitcher->SetActiveWidget(HostMenu);
 }
 
 void UMainMenu::HostServer() {
