@@ -4,6 +4,7 @@
 #include "LobbyGameMode.h"
 #include "Engine/World.h"
 #include "Engine/Public/TimerManager.h"
+#include "PuzzlePlatforms/PuzzlePlatformsGameInstance.h"
 
 void ALobbyGameMode::PostLogin(APlayerController * NewPlayer) {
 	Super::PostLogin(NewPlayer);
@@ -21,6 +22,12 @@ void ALobbyGameMode::Logout(AController * Exiting) {
 }
 
 void ALobbyGameMode::StartGame() {
+	auto GameInstance = Cast<UPuzzlePlatformsGameInstance>(GetGameInstance());
+
+	if (GameInstance == nullptr) { return; }
+
+	GameInstance->StartSession();
+
 	UWorld* World = GetWorld();
 	if (!ensure(World != nullptr)) { return; }
 

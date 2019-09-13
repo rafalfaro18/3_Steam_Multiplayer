@@ -200,6 +200,12 @@ void UPuzzlePlatformsGameInstance::OnJoinSessionComplete(FName SessionName, EOnJ
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 }
 
+void UPuzzlePlatformsGameInstance::StartSession() {
+	if (SessionInterface.IsValid()) {
+		SessionInterface->StartSession(SESSION_NAME);
+	}
+}
+
 void UPuzzlePlatformsGameInstance::LoadMainMenu() {
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
 	if (!ensure(PlayerController != nullptr)) { return; }
